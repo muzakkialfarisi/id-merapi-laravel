@@ -14,8 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('back_ends', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->bigInteger('main_dealer_id');
+            $table->string('name');
+            $table->string('base_url');
+            $table->boolean('is_active');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

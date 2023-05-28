@@ -3,56 +3,68 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function loginUser(Request $request)
+    public function login_process()
     {
         return response()->json([
             'status' => false,
-            'message' => 'validation error',
-            'errors' => 1
-        ], 401);
-        // try {
-        //     $validateUser = Validator::make($request->all(), 
-        //     [
-        //         'email' => 'required|email',
-        //         'password' => 'required'
-        //     ]);
-
-        //     if($validateUser->fails()){
-        //         return response()->json([
-        //             'status' => false,
-        //             'message' => 'validation error',
-        //             'errors' => $validateUser->errors()
-        //         ], 401);
-        //     }
-
-        //     if(!Auth::attempt($request->only(['email', 'password']))){
-        //         return response()->json([
-        //             'status' => false,
-        //             'message' => 'Email & Password does not match with our record.',
-        //         ], 401);
-        //     }
-
-        //     $user = User::where('email', $request->email)->first();
-
-        //     return response()->json([
-        //         'status' => true,
-        //         'message' => 'User Logged In Successfully',
-        //         'token' => $user->createToken("API TOKEN")->plainTextToken
-        //     ], 200);
-
-        // } catch (\Throwable $th) {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => $th->getMessage()
-        //     ], 500);
-        // }
+            'message' => 'to be announced'
+        ]);
     }
 
-    public function register_process()
+    public function register_process(Request $request)
     {
+        $params = json_decode(json_encode($request->all()), true);
+
+        $validator = (new UserRequest())->registration($params);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'validation error',
+                'data' => $validator->errors()
+            ]);
+        }
+
+        if (!isset($params['id'])) {
+            $save = (new UserRepository())
+                ->save_record($params);
+        } else {
+            $query['conditions'] = [
+                [
+                    'field' => 'id',
+                    'value' => $params['id']
+                ]
+            ];
+
+            $user = (new UserRepository())
+                ->get_first($query);
+
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'user not found',
+                ]);
+            }
+
+            $save = (new UserRepository())
+                ->update_record_by_id($user['id'], $params);
+        }
+
+        if (!$save) {
+            return response()->json([
+                'status' => false,
+                'message' => 'data failed to save',
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'data saved successfully',
+        ]);
     }
 }

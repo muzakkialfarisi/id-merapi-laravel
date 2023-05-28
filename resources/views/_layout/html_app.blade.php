@@ -10,7 +10,16 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('lib/css/dark.css') }}" >
         <link rel="stylesheet"  type="text/css" href="{{ asset('lib/sweetalert2/sweetalert2.min.css') }}">
 
-        <title>MERAPI</title>
+        <title>{{ config('app.name') }}</title>
     </head>
     <body style="font-size: 14px">
-        
+
+        @yield('content')
+
+        <script src="{{ URL::asset('lib/js/app.js') }}"></script>
+        <script src="{{ URL::asset('lib/sweetalert2/sweetalert2.min.js') }}"></script>
+        @stack('scripts')
+
+        @include('_layout.html_notification')
+    </body>
+</html>

@@ -3,24 +3,46 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\WebAuthentication;
+use App\Http\Requests\UserRequest;
+use App\Repositories\AuthRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function login_process(WebAuthentication $request)
+    public function login_process(Request $request)
     {
-        $credentials = $request->getCredentials();
-        
-        if (!Auth::validate($credentials)) {
-            return redirect()->route('auth.login')->with(['error' => 'Username or Password incorrect!']);
+        $params = json_decode(json_encode($request->all()), true);
+
+        $validator = (new UserRequest())->login($params);
+        if ($validator->fails()) {
+            return redirect()->back()->with(['error' => $validator->errors()->first()]);
         }
 
-        $user = Auth::getProvider()->retrieveByCredentials($credentials);
+        $query['conditions'] = [
+            [
+                'field' => 'username',
+                'value' => $params['username']
+            ],
+        ];
 
-        Auth::login($user);
+        $user = (new UserRepository())->get_first($query);
+        if (!isset($user)) {
+            return redirect()->back()->with(['error' => 'user not found, please regist your account!']);
+        }
 
-        return $this->authenticated($request, $user);
-        return redirect()->route('dashboard.index');
+        $password_validation = (new AuthRepository())->hash_check($params['password'] . $user['salt'], $user['password']);
+        if ($password_validation) {
+            $attempt = Auth::attempt([
+                'email'  => $user['email'],
+                'password'  => $params['password'] . $user['salt']
+            ]);
+            if ($attempt) {
+                return redirect()->intended('dashboard');
+            }
+        }
+
+        return redirect()->back()->with(['error' => 'password incorrect!']);
     }
 }

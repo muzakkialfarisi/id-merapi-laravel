@@ -4,13 +4,19 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function Index()
     {
-        if(Auth::check()) {
-            return view('dashboard/index');
-        }
+        return view('dashboard/index');
+    }
+
+    public function LogoutProcess()
+    {
+        Session::flush();
+        Auth::logout();
+        return redirect('/');
     }
 }

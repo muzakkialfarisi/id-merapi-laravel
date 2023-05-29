@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function login_process(Request $request)
+    public function LoginProcess(Request $request)
     {
-        $params = json_decode(json_encode($request->all()), true);
+        $params = $request->all();
 
         $validator = (new UserRequest())->login($params);
         if ($validator->fails()) {
@@ -34,10 +34,12 @@ class AuthController extends Controller
 
         $password_validation = (new AuthRepository())->hash_check($params['password'] . $user['salt'], $user['password']);
         if ($password_validation) {
-            $attempt = Auth::attempt([
+            $credentials = [
                 'email'  => $user['email'],
                 'password'  => $params['password'] . $user['salt']
-            ]);
+            ];
+
+            $attempt = Auth::attempt($credentials);
             if ($attempt) {
                 return redirect()->intended('dashboard');
             }

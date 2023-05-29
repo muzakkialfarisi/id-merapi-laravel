@@ -1,6 +1,8 @@
-@include('_layout._content.header')
+@extends('_layout.html_app')
 
-@include('dashboard.chart')
+@section('content')
+    @include('dashboard.chart')
+@endsection
 
 @push('scripts')
     <script type="text/javascript">
@@ -71,5 +73,3 @@
         });
     </script>
 @endpush
-
-@include('_layout._content.footer')

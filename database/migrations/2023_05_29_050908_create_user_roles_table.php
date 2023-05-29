@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('back_ends', function (Blueprint $table) {
+        Schema::create('user_roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('main_dealer_id')->unsigned();
-            $table->string('name');
-            $table->string('base_url');
-            $table->boolean('is_active');
+            $table->string('name')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('back_ends');
+        Schema::dropIfExists('user_roles');
     }
 };

@@ -1,7 +1,6 @@
-@extends('_layout.html_app')
+@extends('_layout.html_single')
 
 @section('content')
-    @include('_layout._single.header')
     <div class="card">
         <div class="card-body">
             <div class="m-sm-4">
@@ -35,5 +34,4 @@
             </div>
         </div>
     </div>
-    @include('_layout._single.footer')
 @endsection

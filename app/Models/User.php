@@ -18,7 +18,15 @@ class User extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
-        'name', 'email', 'password', 'username', 'is_active', 'salt',
+        'name',
+        'user_role_id',
+        'username',
+        'email',
+        'phone_number',
+        'password',
+        'salt',
+        'avatar',
+        'is_active',
     ];
 
     protected $dateFormat = "Y-m-d H:i:s";

@@ -47,13 +47,13 @@ class ApiService
         $back_end = (new BackEndRepository())
             ->get_first($query_back_end);
 
-        $back_end = $back_end->with(['apis' => function ($query) {
-            $query = $query->where('is_active', 1);
-        }])->first();
-
         if (!isset($back_end)) {
             return false;
         }
+
+        $back_end = $back_end->with(['apis' => function ($query) {
+            $query = $query->where('is_active', 1);
+        }])->first();
 
         if ($back_end->apis->count() <= 0) {
             return false;

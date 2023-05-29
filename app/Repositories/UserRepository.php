@@ -20,14 +20,18 @@ class UserRepository extends MasterRepository
     public function save_record($params)
     {
         $salt = (new AuthRepository())->salt();
+        $avatar = $params['avatar'] ?? 'default-profile-pricture.jpg';
 
         $data = [
-            'name'      => $params['name'],
-            'username'  => $params['username'],
-            'email'     => $params['email'],
-            'password'  => (new AuthRepository())->hash($params['username'] . $salt),
-            'salt'      => $salt,
-            'is_active' => 1,
+            'name'          => $params['name'],
+            'user_role_id'  => $params['user_role_id'],
+            'username'      => $params['username'],
+            'email'         => $params['email'] ?? null,
+            'phone_number'  => $params['phone_number'] ?? null,
+            'password'      => (new AuthRepository())->hash($params['username'] . $salt),
+            'salt'          => $salt,
+            'avatar'        => $avatar,
+            'is_active'     => 1,
         ];
 
         return parent::save_record($data);

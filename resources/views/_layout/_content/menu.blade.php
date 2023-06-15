@@ -14,8 +14,8 @@
         <i class="align-middle me-2 fas fa-fw fa-tachometer-alt"></i> <span class="align-middle">User</span>
     </a>
 </li> --}}
-<li class="sidebar-item {{ Request::is('maindealer') || Request::is('api/md/*')? 'active' : '' }} ">
-    <a class="sidebar-link" href="{{ route('maindealer.index') }}">
+<li class="sidebar-item {{ Request::is('main_dealer') || Request::is('api/md/*')? 'active' : '' }} ">
+    <a class="sidebar-link" href="{{ route('main_dealer.index') }}">
         <i class="align-middle me-2 fas fa-fw fa-tachometer-alt"></i> <span class="align-middle">Main Dealer</span>
     </a>
 </li>
@@ -24,15 +24,15 @@
         <i class="align-middle me-2 fas fa-fw fa-brain"></i> <span class="align-middle">Feature</span>
     </a>
 </li>
-{{-- <li class="sidebar-header">
+<li class="sidebar-header">
     monitoring
 </li>
-<li class="sidebar-item {{ Request::is('api/alert') || Request::is('api/alert/*') ? 'active' : '' }}">
+{{-- <li class="sidebar-item {{ Request::is('api/alert') || Request::is('api/alert/*') ? 'active' : '' }}">
     <a class="sidebar-link" href="{{ route('api.alert') }}">
         <i class="align-middle me-2 fas fa-fw fa-fire"></i> <span class="align-middle">API</span>
     </a>
-</li>
-<li class="sidebar-item {{ Request::is('log/md') || Request::is('log/md/*') ? 'active' : '' }}">
+</li> --}}
+{{-- <li class="sidebar-item {{ Request::is('log/md') || Request::is('log/md/*') ? 'active' : '' }}">
     <a data-bs-target=#Log data-bs-toggle="collapse" class="sidebar-link collapsed">
         <i class="align-middle me-2 fab fa-fw fa-blogger-b"></i> <span class="align-middle">Log</span>
     </a>

@@ -21,12 +21,12 @@ class MainDealerModel extends Model
 
     protected $hidden = ['deleted_at'];
 
-    public function backend()
+    public function back_ends()
     {
         return $this->hasMany(BackEndModel::class, 'main_dealer_id', 'id');
     }
 
-    public function api()
+    public function apis()
     {
         return $this->hasMany(ApiModel::class, 'main_dealer_id', 'id');
     }

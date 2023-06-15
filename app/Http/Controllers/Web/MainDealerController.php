@@ -26,7 +26,7 @@ class MainDealerController extends Controller
         $validator = (new MainDealerRequest())->upsert($params);
 
         if ($validator->fails()) {
-            return redirect()->route('maindealer.index')->with(['error' => $validator->errors()->first()]);
+            return redirect()->route('main_dealer.index')->with(['error' => $validator->errors()->first()]);
         }
 
         if (isset($params['id'])) {
@@ -38,9 +38,9 @@ class MainDealerController extends Controller
         }
 
         if (!$data) {
-            return redirect()->route('maindealer.index')->with(['error' => 'Data failed to save!']);
+            return redirect()->route('main_dealer.index')->with(['error' => 'Data failed to save!']);
         }
 
-        return redirect()->route('maindealer.index')->with(['success' => 'Data saved successfully!']);
+        return redirect()->route('main_dealer.index')->with(['success' => 'Data saved successfully!']);
     }
 }

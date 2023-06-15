@@ -14,7 +14,7 @@ class MainDealerRequest extends FormRequest
 
         if (isset($params['id'])) {
             $validate['id'] = 'required|numeric|exists:main_dealers,id';
-            $validate['name'] = 'required|unique:main_dealer,name,' . $params['name'] . ',name';
+            $validate['name'] = 'required|unique:main_dealers,name,' . $params['name'] . ',name';
         }
 
         return Validator::make($params, $validate);

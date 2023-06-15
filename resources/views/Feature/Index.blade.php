@@ -16,17 +16,17 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-sm table-striped">
+                <table class="table table-striped">
                     <thead>
                         <tr class="text-center">
                             <th>
-                                action
+                                Action
                             </th>
                             <th>
-                                name
+                                Name
                             </th>
                             <th>
-                                status
+                                Status
                             </th>
                         </tr>
                     </thead>

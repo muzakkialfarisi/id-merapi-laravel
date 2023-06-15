@@ -4,9 +4,17 @@
     <div class="card">
         <div class="card-body">
             <div class="m-sm-4">
+                <div class="row mb-5">
+                    <div class="col-6">
+                        <img src="{{ URL::asset('image/app/astra-motor-logo.png') }}" alt="Astra Motor"  width="50%" />
+                    </div>
+                    <div class="col-6 text-end">
+                        
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-12 text-center">
-                        {{-- <img src="~/img/logo/wms_logo.png" alt="Linda Miller" class="img-fluid" width="150" height="40" /> --}}
+                        <img src="{{ URL::asset('image/app/merapi-high-resolution-logo-color-on-transparent-background.png') }}" alt="Linda Miller" class="img-fluid" width="150" height="40" />
                     </div>
                 </div>
                 <br />

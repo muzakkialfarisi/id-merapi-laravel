@@ -19,15 +19,13 @@
 
         <div class="wrapper">
             <nav id="sidebar" class="sidebar">
-                <a class="sidebar-brand" asp-controller="Dashboards" asp-action="Index">
-                    {{-- <img src="~/img/avatars/wmsmini.jpg" class="img-fluid rounded-3  mb-2" alt="M-API" /> --}}
-                    &nbsp;&nbsp;
-                    MERAPI
+                <a class="sidebar-brand">
+                    <img src="{{ URL::asset('image/app/merapi-website-favicon-white.png') }}" style="width:15%" class="img-fluid rounded-circle" alt="MERAPI" />
                 </a>
                 <div class="sidebar-content">
                     <div class="sidebar-user">
-                        <img src="{{ URL::asset('image/user/avatar/' . Auth::user()->avatar) }}" class="img-fluid rounded-circle mb-2" alt="Profile Picture" />
-
+                        <img src="{{ URL::asset('image/user/avatar/' . Auth::user()->avatar) }}" class="img-fluid rounded-circle mb-1" alt="Profile Picture" />
+                        
                         <div class="fw-bold">
 
                             {{ Auth::user()->name ?? 'Muzakki Ahmad Al Farisi' }}

@@ -2,6 +2,7 @@
 
 @section('content')
     @include('dashboard.chart')
+    @include('dashboard.table')
 @endsection
 
 @push('scripts')
